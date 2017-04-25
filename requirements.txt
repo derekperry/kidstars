@@ -1,0 +1,6 @@
+flask
+git+https://github.com/mattupstate/flask-social.git
+flask-sqlalchemy
+facebook-sdk
+flask_util_js
+git+https://github.com/mitsuhiko/flask-oauth.git
