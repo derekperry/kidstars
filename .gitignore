@@ -168,4 +168,8 @@ typings/
 .env
 
 
+# PyCharm
+.idea/
+
+
 

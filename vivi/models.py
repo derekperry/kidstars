@@ -1,12 +1,28 @@
-from app import db
+from __future__ import absolute_import
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+roles_users = db.Table('roles_users',
+    db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+    db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
 
 class User(db.Model):
+    __tablename__ = 'user'
+
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
-    accesslevel = db.Column(db.Integer)
-    mobile = db.Column(db.String(12))
-    user_comments = db.relationship('User_Comment')
+    password = db.Column(db.String(255))
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    active = db.Column(db.Boolean())
+    last_login_at = db.Column(db.DateTime())
+    current_login_at = db.Column(db.DateTime())
+    last_login_ip = db.Column(db.String(100))
+    current_login_ip = db.Column(db.String(100))
+    login_count = db.Column(db.Integer)
+    roles = db.relationship('Role', secondary=roles_users,
+                            backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
         return '<User ID: {0} - {1}>'.format(self.id, self.username)
@@ -31,8 +47,10 @@ class User(db.Model):
 
 
 class Role(db.Model):
+    __tablename__ = 'role'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
+    description = db.Column(db.String(200))
 
 
 class Connection(db.Model):
