@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+from psycopg2 import IntegrityError
 
 from flask import Flask, redirect, url_for, Blueprint
 from flask_util_js import FlaskUtilJs
@@ -31,8 +32,11 @@ app.register_blueprint(root)
 
 @app.before_first_request
 def create_user():
-    user_datastore.create_user(email='derek@derekperry.com', password='password')
-    db.session.commit()
+    try:
+        user_datastore.create_user(email='derek@derekperry.com', password='password')
+        db.session.commit()
+    except IntegrityError:
+        pass
 
 if __name__ == '__main__':
     app.run()
