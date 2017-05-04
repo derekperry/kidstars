@@ -15,7 +15,7 @@ from kidstars.models import db, User, Role, Connection
 app = Flask(__name__)
 try:
     app.config.from_object('kidstars.instance.config.{}Config'.format(os.environ['PYENVT']))
-except KeyError:
+except (KeyError, ImportError):
     app.config.from_object('config.Config')
 
 db.init_app(app)
