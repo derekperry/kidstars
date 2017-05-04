@@ -1,0 +1,8 @@
+{
+  "name": "Kidstars App",
+  "description": "An application to track your child's behavior.",
+  "image": "derekperry/kidstars",
+  "repository": "https://github.com/derekperry/kidstars",
+  "keywords": ["python", "flask" ],
+  "addons": [ "" ]
+}

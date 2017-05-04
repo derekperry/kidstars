@@ -6,3 +6,4 @@ flask_util_js
 git+https://github.com/mitsuhiko/flask-oauth.git
 flask-migrate
 bcrypt
+gunicorn

@@ -4,7 +4,7 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
 from app import app, db
-from vivi.models import User, Role, Connection
+from kidstars.models import User, Role, Connection
 
 
 migrate = Migrate(app, db)

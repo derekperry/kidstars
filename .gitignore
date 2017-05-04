@@ -172,4 +172,7 @@ typings/
 .idea/
 
 
+# SQLite DB
+*.sqlite3
+
 

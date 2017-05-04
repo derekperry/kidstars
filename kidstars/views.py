@@ -18,4 +18,3 @@ def hello_world():
 @login_required
 def hello_world1():
     return 'Hello World!'
-
