@@ -29,14 +29,5 @@ Social(app, SQLAlchemyConnectionDatastore(db, Connection))
 from kidstars.views import root
 app.register_blueprint(root)
 
-
-@app.before_first_request
-def create_user():
-    try:
-        user_datastore.create_user(email='derek@derekperry.com', password='password')
-        db.session.commit()
-    except IntegrityError:
-        pass
-
 if __name__ == '__main__':
     app.run()
