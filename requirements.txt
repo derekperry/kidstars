@@ -7,3 +7,4 @@ git+https://github.com/mitsuhiko/flask-oauth.git
 flask-migrate
 bcrypt
 gunicorn
+psycopg2

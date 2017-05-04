@@ -18,3 +18,10 @@ class Config(object):
     # flask-security
     SECURITY_PASSWORD_HASH = 'bcrypt'
     SECURITY_PASSWORD_SALT = 'frewqjaibhf24ib3qbib34ibfo34lf;lf3;q34;f34q;f43f'
+
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'].replace('postgres', 'postgresql+psycopg2')
+
+    SOCIAL_FACEBOOK = {
+        'consumer_key': os.environ['FB_CONSUMER_KEY'],
+        'consumer_secret': os.environ['FB_CONSUMER_SECRET']
+    }
