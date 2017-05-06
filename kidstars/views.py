@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from flask import Blueprint
+from flask import Blueprint, render_template
 from flask_security import login_required, current_user
 
 root = Blueprint('views', __name__, template_folder='templates')
@@ -18,3 +18,7 @@ def hello_world():
 @login_required
 def hello_world1():
     return 'Hello World!'
+
+@root.route('/kidstars')
+def login_page():
+    return render_template('login.html')
