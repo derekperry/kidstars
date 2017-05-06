@@ -22,3 +22,7 @@ def hello_world1():
 @root.route('/kidstars')
 def login_page():
     return render_template('login.html')
+
+@root.route('/dptest')
+def dptest():
+    return 'cool!'
