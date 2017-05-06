@@ -26,8 +26,6 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 Security(app, user_datastore)
 Social(app, SQLAlchemyConnectionDatastore(db, Connection))
 
-from kidstars.views import root
-app.register_blueprint(root)
 
 if __name__ == '__main__':
     app.run()
