@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block page_title %}Kidstars{% endblock page_title %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock stylesheets %}
+
+{% block contents %}
+<div class="row align-items-center justify-content-center">
+    <div class="col">
+        <h1>Welcome to Kidstars!</h1>
+        <h2>Kidstars tracks kid behaviors and provides helpful guidance</h2>
+    </div>
+</div>
+<div class="row align-items-center justify-content-center">
+    {% include 'includes/login_form.html' %}
+</div>
+{% endblock contents %}
+
+{% block footer %}
+{% include 'includes/footer_login.html' %}
+{% endblock footer %}
