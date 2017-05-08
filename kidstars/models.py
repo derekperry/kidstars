@@ -8,11 +8,14 @@ roles_users = db.Table('roles_users',
                        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
                        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
-users_children = db.Table('users_children',
-                          db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-                          db.Column('child_id'), db.Integer(), db.ForeignKey('child.id'),
-                          db.Column('view_only', db.Boolean(), default=False),
-                          db.Column('sort_order', db.Integer()))
+class UsersChildrenAssociation(db.Model):
+    __tablename__ = 'users_to_children'
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), primary_key=True)
+    child_id = db.Column(db.Integer(), db.ForeignKey('child.id'), primary_key=True)
+    view_only = db.Column(db.Boolean(), default=False)
+    sort_order = db.Column(db.Integer())
+    child = db.relationship('Child', back_populates='users')
+    user = db.relationship('User', back_populates='children')
 
 
 class User(db.Model):
@@ -29,7 +32,7 @@ class User(db.Model):
     login_count = db.Column(db.Integer)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
-    created_children = db.relationship('Child')
+    children = db.relationship('UsersChildrenAssociation', back_populates='user')
 
     def __repr__(self):
         return '<User ID: {0} - {1}>'.format(self.id, self.username)
@@ -79,4 +82,5 @@ class Child(db.Model):
     birth_date = db.Column(db.Date())
     image_url = db.Column(db.String(512))
     created_by = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    users = db.relationship('UsersChildrenAssociation', back_populates='child')
 
