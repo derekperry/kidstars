@@ -5,8 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 roles_users = db.Table('roles_users',
-    db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-    db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+                       db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
+users_children = db.Table('users_children',
+                          db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+                          db.Column('child_id'), db.Integer(), db.ForeignKey('child.id'),
+                          db.Column('view_only', db.Boolean(), default=False),
+                          db.Column('sort_order', db.Integer()))
 
 
 class User(db.Model):
@@ -23,6 +29,7 @@ class User(db.Model):
     login_count = db.Column(db.Integer)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    created_children = db.relationship('Child')
 
     def __repr__(self):
         return '<User ID: {0} - {1}>'.format(self.id, self.username)
@@ -64,3 +71,12 @@ class Connection(db.Model):
     profile_url = db.Column(db.String(512))
     image_url = db.Column(db.String(512))
     rank = db.Column(db.Integer)
+
+
+class Child(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    birth_date = db.Column(db.Date())
+    image_url = db.Column(db.String(512))
+    created_by = db.Column(db.Integer(), db.ForeignKey('user.id'))
+
