@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+<form class="form" role="form" method="POST" enctype="multipart/form-data" action="{{ url_for('save_child') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.name.label }}
+        {{ form.name(class_="form-control", placeholder="Child's name") }}
+    </div>
+    <div class="form-group">
+        <label for="birth_date">Child's Birthdate</label>
+        <input id="{{ form.birth_date.id }}">
+    </div>
+    <input type="submit" value="Submit">
+</form>
+<script>
+    $(document).ready(function() {
+        $('{{ form.birth_date.id }}').kendoDatePicker();
+    });
+</script>

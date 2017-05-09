@@ -10,6 +10,7 @@ from flask_mail import Mail
 from flask_security import Security, SQLAlchemyUserDatastore, login_required
 from flask_social import Social
 from flask_social.datastore import SQLAlchemyConnectionDatastore
+from flask_wtf.csrf import CSRFProtect
 
 from kidstars.models import db, User, Role, Connection
 
@@ -25,6 +26,7 @@ mail = Mail(app)
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 Security(app, user_datastore)
 Social(app, SQLAlchemyConnectionDatastore(db, Connection))
+csrf = CSRFProtect(app) # TODO: Evaluate if this is needed
 
 from kidstars.root.views import root
 app.register_blueprint(root)

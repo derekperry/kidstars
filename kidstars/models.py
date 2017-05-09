@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 
+from datetime import date
 from flask_sqlalchemy import SQLAlchemy
+from flask_security import current_user
 
 db = SQLAlchemy()
 
@@ -80,7 +82,11 @@ class Child(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     birth_date = db.Column(db.Date())
-    image_url = db.Column(db.String(512))
+    image_url = db.Column(db.String(512), nullable=True)
     created_by = db.Column(db.Integer(), db.ForeignKey('user.id'))
     users = db.relationship('UsersChildrenAssociation', back_populates='child')
+
+    def __init__(self):
+        self.created_on = date.today()
+        self.created_by = current_user.id
 

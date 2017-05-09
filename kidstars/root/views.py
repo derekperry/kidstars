@@ -1,7 +1,11 @@
 from __future__ import absolute_import
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_security import login_required, current_user
+
+from app import db
+from kidstars.models import Child
+from kidstars.forms import ChildForm
 
 root = Blueprint('root', __name__, static_folder='static', template_folder='templates', url_prefix='')
 
@@ -26,3 +30,15 @@ def login_page():
 @root.route('/dptest')
 def dptest():
     return 'cool!'
+
+@root.route('/child', methods=['POST'])
+def child_add():
+    child_form = ChildForm(login_required(request.form))
+    if request.method == 'POST' and child_form.validate():
+        child = Child(name=child_form.name,
+                      birth_date=child_form.birth_date)
+        db.session.add(child)
+        db.session.commit()
+        flash('Child {} registered!'.format(child_form.name))
+        return redirect(url_for('child', {'child_id': child.id}))
+    return render_template('forms/child_form.html', form=child_form)
