@@ -31,7 +31,8 @@ def login_page():
 def dptest():
     return 'cool!'
 
-@root.route('/child', methods=['POST'])
+@login_required
+@root.route('/child', methods=['POST', 'GET'])
 def child_add():
     child_form = ChildForm(login_required(request.form))
     if request.method == 'POST' and child_form.validate():
