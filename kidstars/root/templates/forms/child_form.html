@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form class="form" role="form" method="POST" enctype="multipart/form-data" action="{{ url_for('save_child') }}">
+<form class="form" role="form" method="POST" enctype="multipart/form-data" action="{{ url_for('root.child_add') }}">
     {{ form.hidden_tag() }}
     <div class="form-group">
         {{ form.name.label }}
