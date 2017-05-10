@@ -34,7 +34,7 @@ def dptest():
 @login_required
 @root.route('/child', methods=['POST', 'GET'])
 def child_add():
-    child_form = ChildForm(login_required(request.form))
+    child_form = ChildForm(request.form)
     if request.method == 'POST' and child_form.validate():
         child = Child(name=child_form.name,
                       birth_date=child_form.birth_date)
