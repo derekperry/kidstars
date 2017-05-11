@@ -9,13 +9,8 @@
     </div>
     <div class="form-group">
         <label for="birth_date">Child's Birthdate</label>
-        <input id="{{ form.birth_date.id }}">
+        <input id="{{ form.birth_date.id }}" class="k-datepicker">
     </div>
     <input type="submit" value="Submit">
 </form>
-<script>
-    $(document).ready(function() {
-        $('#{{ form.birth_date.id }}').kendoDatePicker();
-    });
-</script>
 {% endblock content %}
