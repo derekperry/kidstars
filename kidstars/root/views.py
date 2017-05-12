@@ -7,7 +7,7 @@ from app import db
 from kidstars.models import Child
 from kidstars.forms import ChildForm
 
-root = Blueprint('root', __name__, static_folder='static', template_folder='templates', url_prefix='')
+root = Blueprint('root', __name__, static_folder='static', template_folder='templates', url_prefix='', static_url_path='/{}'.format(__name__))
 
 
 @root.route('/')
