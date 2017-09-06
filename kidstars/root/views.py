@@ -43,3 +43,9 @@ def child_add():
         flash('Child {} registered!'.format(child_form.name))
         return redirect(url_for('child', {'child_id': child.id}))
     return render_template('forms/child_form.html', form=child_form)
+
+@login_required
+@root.route('/child/<int:id>', methods=['GET'])
+def child_view(id):
+    child = Child.query.get(id)
+    return child.id + ' ' + child.name + ' ' + child.birth_date
